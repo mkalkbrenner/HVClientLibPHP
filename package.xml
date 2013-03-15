@@ -8,8 +8,8 @@
     <summary>Easy to use PHP library to connect to Microsoft HealthVault.</summary>
     <description>
         Easy to use PHP library to connect to Microsoft HealthVault. It depends
-        on HVRawConnector adds a nicer programming interface by hiding (most)
-        of the complicated XML stuff.
+        on HVRawConnector and adds a nicer programming interface by hiding
+        (most) of the complicated XML stuff.
     </description>
 
     <lead>

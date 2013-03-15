@@ -1,15 +1,19 @@
 HVClientLibPHP
 ==============
 
-PHP library to connect to
+An easy to use PHP library to connect to
 [Microsoft HealthVault](https://www.healthvault.com/).
+on top of
+[HVRawConnectorPHP](https://github.com/mkalkbrenner/HVRawConnectorPHP/).
+It adds a nicer object oriented programming interface and hides (most) of the
+complicated XML parts in the HealthVault protocol.
 
 
 Installation
 ------------
 
 HVClientLibPHP depends on
-[HVRawConnectorPHP](https://raw.github.com/mkalkbrenner/HVRawConnectorPHP/).
+[HVRawConnectorPHP](https://github.com/mkalkbrenner/HVRawConnectorPHP/).
 If you simply use the latest development version of HVClientLibPHP from github
 you have to ensure that HVRawConnectorPHP and all it's dependencies are
 installed.
@@ -29,8 +33,8 @@ available demo application.
 Status
 ------
 
-HVClientLibPHP is not a full featured HealthVault SDK and probably never will
-be.
+HVClientLibPHP is not a full featured HealthVault SDK, but should provide all
+the required stuff to create powerful HealthVault applications with PHP.
 
 It can basically handle all
 [Things](http://developer.healthvault.com/pages/types/types.aspx) already,
@@ -39,7 +43,7 @@ classes.
 
 But the number of implemented
 (Methods)[http://developer.healthvault.com/pages/methods/methods.aspx] is very
-limited at the moment:
+limited to the essential at the moment:
 * GetPersonInfo
 * GetThings
 * PutThings (in progress)
@@ -47,7 +51,7 @@ limited at the moment:
 If you need more and understand the available
 [Documentation](http://developer.healthvault.com/default.aspx), you can always
 use HVRawConnectorPHP directly. In that case you should ideally contribute your
-work to let HVClientLibPHP faster.
+work to let HVClientLibPHP grow faster.
 
 
 Usage
