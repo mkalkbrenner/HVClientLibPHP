@@ -2,7 +2,7 @@ HVClientLibPHP
 ==============
 
 An easy to use PHP library to connect to
-[Microsoft HealthVault](https://www.healthvault.com/).
+[Microsoft HealthVault](https://www.healthvault.com/)
 on top of
 [HVRawConnectorPHP](https://github.com/mkalkbrenner/HVRawConnectorPHP/).
 It adds a nicer object oriented programming interface and hides (most) of the
