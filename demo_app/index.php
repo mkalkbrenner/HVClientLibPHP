@@ -29,12 +29,12 @@ try {
 
   $personInfo = $hv->getPersonInfo();
 
-  $personId = $personInfo->{'person-id'};
-  $recordId = $personInfo->{'selected-record-id'};
+  $personId = $personInfo->person_id;
+  $recordId = $personInfo->selected_record_id;
 
   print 'person-id: <b>' . $personId . '</b><br>';
   print 'name: <b>' . $personInfo->name . '</b><br>';
-  print 'preferred-culture language: <b>' . $personInfo->{'preferred-culture'}->language . '</b><br>';
+  print 'preferred-culture language: <b>' . $personInfo->preferred_culture->language . '</b><br>';
   print '<hr>';
 
   ob_flush();

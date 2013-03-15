@@ -26,6 +26,12 @@ abstract class AbstractXmlPopo {
     if (isset($this->payload->$name)) {
       return $this->payload->$name;
     }
+    else {
+      $name = str_replace('_', '-', $name);
+      if (isset($this->payload->$name)) {
+        return $this->payload->$name;
+      }
+    }
 
     return null;
   }
