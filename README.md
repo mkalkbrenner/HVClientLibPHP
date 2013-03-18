@@ -18,15 +18,14 @@ If you simply use the latest development version of HVClientLibPHP from github
 you have to ensure that HVRawConnectorPHP and all it's dependencies are
 installed.
 
-As soon as available, the latest stable version of HVClientLibPHP could be
-easily installed by pear. In that case all it's dependencies will be installed
-automatically:
+The latest stable version of HVClientLibPHP could be easily installed by pear.
+In that case all it's dependencies will be installed automatically:
 
     pear channel-discover pear.biologis.com
     pear channel-discover pear.querypath.org
-    pear install biologis/HVClientLib
+    pear install biologis/HVClient
 
-This method will install HVClientLib as a library, but without the
+This method will install HVClientLibPHP as a library, but without the
 available demo application.
 
 
@@ -65,13 +64,17 @@ Meanwhile you can have a look at the demo_app source code.
 Demo
 ----
 
-The demo_app included in this repository queries a user's HealthVault record
-for all "[Things](http://developer.healthvault.com/pages/types/types.aspx)" and
-dumps the raw XML content. By default it uses the US pre production instance of
-HealthVault.
+The demo_app included in this repository currently demonstrates two features:
+* It queries a user's HealthVault record for all
+"[Things](http://developer.healthvault.com/pages/types/types.aspx)" and dumps the
+raw XML content.
+* It lists all files uploaded to your selected health record and lets you upload
+additional files.
 
-Simply put the HVClientLibPHP folder on a web server and access
-"demo_app/index.php".
+By default it uses the US pre production instance of HealthVault.
+ 
+To get started, follow the install instructions above and put the demo_app folder
+on a web server and access "demo_app/index.php".
 
 
 Licence
