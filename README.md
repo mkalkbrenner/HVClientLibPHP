@@ -42,8 +42,8 @@ but over the time we will add some more convenience function to the representing
 classes.
 
 But the number of implemented
-(Methods)[http://developer.healthvault.com/pages/methods/methods.aspx] is very
-limited to the essential at the moment:
+[Methods](http://developer.healthvault.com/pages/methods/methods.aspx) is very
+limited at the moment (the essential ones are available):
 * GetPersonInfo
 * GetThings
 * PutThings
