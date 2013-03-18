@@ -3,7 +3,7 @@
          xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
-    <name>HVClientLib</name>
+    <name>HVClient</name>
     <channel>pear.biologis.com</channel>
     <summary>Easy to use PHP library to connect to Microsoft HealthVault.</summary>
     <description>
@@ -41,14 +41,14 @@
             <file name="LICENSE.txt" role="doc" />
             <file name="README.md" role="doc" />
             <file name="HVClient.php" role="php" />
-            <dir name="HVClientLib">
-                <file name="AbstractXmlEntity.php" role="php" />
-                <file name="HealthRecordItemData.php" role="php" />
-                <file name="HealthRecordItemFactory.php" role="php" />
-                <file name="PersonInfo.php" role="php" />
+            <dir name="HVClient">
+                <file name="HVClient_AbstractXmlEntity.php" role="php" />
+                <file name="HVClient_HealthRecordItemData.php" role="php" />
+                <file name="HVClient_HealthRecordItemFactory.php" role="php" />
+                <file name="HVClient_PersonInfo.php" role="php" />
                 <dir name="HealthRecordItem">
-                    <file name="File.php" role="php" />
-                    <file name="Thing.php" role="php" />
+                    <file name="HVClient_File.php" role="php" />
+                    <file name="HVClient_Thing.php" role="php" />
                     <dir name="XmlTemplates">
                         <file name="bd0403c5-4ae2-4b0e-a8db-1888678e4528.xml" role="php" />
                     </dir>
