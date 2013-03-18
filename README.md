@@ -18,13 +18,12 @@ If you simply use the latest development version of HVClientLibPHP from github
 you have to ensure that HVRawConnectorPHP and all it's dependencies are
 installed.
 
-As soon as available, the latest stable version of HVClientLibPHP could be
-easily installed by pear. In that case all it's dependencies will be installed
-automatically:
+The latest stable version of HVClientLibPHP could be easily installed by pear.
+In that case all it's dependencies will be installed automatically:
 
     pear channel-discover pear.biologis.com
     pear channel-discover pear.querypath.org
-    pear install biologis/HVClientLib
+    pear install biologis/HVClient
 
 This method will install HVClientLib as a library, but without the
 available demo application.
