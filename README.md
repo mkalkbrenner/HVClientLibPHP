@@ -64,15 +64,17 @@ Meanwhile you can have a look at the demo_app source code.
 Demo
 ----
 
-The demo_app included in this repository currently offers two "features":
+The demo_app included in this repository currently demonstrates two features:
 * It queries a user's HealthVault record for all
 "[Things](http://developer.healthvault.com/pages/types/types.aspx)" and dumps the
-raw XML content. By default it uses the US pre production instance of HealthVault.
-* It lists all files uploaded to your selected health record and let you upload
+raw XML content.
+* It lists all files uploaded to your selected health record and lets you upload
 additional files.
 
-Simply put the HVClientLibPHP folder on a web server and access
-"demo_app/index.php".
+By default it uses the US pre production instance of HealthVault.
+ 
+To get started, follow the install instructions above and put the demo_app folder
+on a web server and access "demo_app/index.php".
 
 
 Licence
