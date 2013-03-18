@@ -1,4 +1,4 @@
-HVClientLib 1.0.1 - 2013-03-18
+HVClientLib 1.0.1 - 2013-xx-xx
 ==============================
 
 * always return a string value in HVClient_AbstractXmlEntity::__get
