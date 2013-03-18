@@ -39,16 +39,33 @@ try {
 
   ob_flush();
 
-  print '<br><a href="list_all_things.php">List all things</a>';
-  print '<br><a href="files.php">Files example</a>';
+  if (isset($_POST['submit']) && 'Upload' == $_POST['submit']) {
+    $stream = fopen($_FILES['thefile']['tmp_name'], 'r');
+    $file = File::createFromStream($stream, $_FILES['thefile']['name'], $_FILES['thefile']['type']);
+    fclose($stream);
+
+    $hv->putThings($file, $recordId);
+  }
+
+  $things = $hv->getThings('File', $recordId);
+  foreach ($things as $thing) {
+    print $thing->file->name . '<br>';
+  }
+  print "<hr>";
+  ob_flush();
 
 }
 catch (HVRawConnectorUserNotAuthenticatedException $e) {
   print "You're not authenticated! ";
   printAuthenticationLink();
 }
-catch (Exception $e) {
+catch (HVRawConnectorAuthenticationExpiredException $e) {
   print "Your authentication expired! ";
+  printAuthenticationLink();
+}
+catch (Exception $e) {
+  print $e->getMessage() . '<br>';
+  print $e->getCode() . '<br>';
   printAuthenticationLink();
 }
 
@@ -60,3 +77,9 @@ function printAuthenticationLink() {
     'http' . (!empty($_SERVER["HTTP_SSL"]) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])
     . '">Authenticate</a>';
 }
+
+?>
+<form enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+  <input name="thefile" type="file">
+  <input type="submit" name="submit" value="Upload">
+</form>

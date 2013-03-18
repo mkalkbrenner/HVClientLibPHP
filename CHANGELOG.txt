@@ -1,3 +1,4 @@
-HVClientLib 1.0.0 - 2013-xx-xx
+HVClientLib 1.0.0 - 2013-03-18
 ==============================
 
+* first release

@@ -46,7 +46,7 @@ But the number of implemented
 limited to the essential at the moment:
 * GetPersonInfo
 * GetThings
-* PutThings (in progress)
+* PutThings
 
 If you need more and understand the available
 [Documentation](http://developer.healthvault.com/default.aspx), you can always

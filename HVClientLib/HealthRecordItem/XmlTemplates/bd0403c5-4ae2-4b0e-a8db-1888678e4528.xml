@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<thing>
+    <type-id name="File">bd0403c5-4ae2-4b0e-a8db-1888678e4528</type-id>
+    <data-xml>
+        <file>
+            <name />
+            <size />
+            <content-type>
+                <text />
+            </content-type>
+        </file>
+    </data-xml>
+    <data-other content-encoding="base64" />
+</thing>

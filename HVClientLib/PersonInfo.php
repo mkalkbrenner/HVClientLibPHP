@@ -6,7 +6,7 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
-class PersonInfo extends AbstractXmlPopo {
+class PersonInfo extends AbstractXmlEntity {
 
   public function __construct(QueryPath $qp) {
     $this->qp = $qp;

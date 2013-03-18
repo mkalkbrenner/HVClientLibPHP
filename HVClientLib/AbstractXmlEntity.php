@@ -6,7 +6,7 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
-abstract class AbstractXmlPopo {
+abstract class AbstractXmlEntity {
 
   protected $qp;
   protected $simpleXML = NULL;

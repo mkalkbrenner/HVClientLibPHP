@@ -16,12 +16,12 @@ require_once 'Log.php';
  * @see http://pear.biologis.com
  */
 require_once 'HVRawConnector.php';
+require_once 'HVClientLib/HealthRecordItemFactory.php';
 
 spl_autoload_register('HVClient::autoLoader');
 
-class HVClient {
 
-  private static $classNames = array();
+class HVClient {
 
   private $appId;
   private $session;
@@ -46,7 +46,7 @@ class HVClient {
   }
 
   public function getPersonInfo() {
-    $this->connection->authentifiedWcRequest('GetPersonInfo');
+    $this->connection->authenticatedWcRequest('GetPersonInfo');
     $qp = $this->connection->getQueryPathResponse();
     $qpPersonInfo = $qp->find(':root person-info');
     if ($qpPersonInfo) {
@@ -54,40 +54,47 @@ class HVClient {
     }
   }
 
-  public function getThings($thingId, $recordId, $options = array()) {
-    $thingName = '';
-    if (array_key_exists($thingId, HVRawConnector::$things)) {
-      $thingName = $thingId;
-      $thingId = HVRawConnector::$things[$thingId];
-    }
-    elseif (!in_array($thingId, HVRawConnector::$things)) {
-      throw new Exception('Unknown Thing or ThingId: ' . $thingId);
-    }
-    else {
-      $thingNames = array_flip(HVRawConnector::$things);
-      $thingName = $thingNames[$thingId];
-    }
+  public function getThings($thingNameOrTypeId, $recordId, $options = array()) {
+    $typeId = HealthRecordItemFactory::getTypeId($thingNameOrTypeId);
 
     $options += array(
       'group max' => 30,
     );
 
-    $this->connection->authentifiedWcRequest(
+    $this->connection->authenticatedWcRequest(
       'GetThings',
       '3',
-      '<group max="' . $options['group max'] . '"><filter><type-id>' . $thingId . '</type-id></filter><format><section>core</section><xml/></format></group>',
+      '<group max="' . $options['group max'] . '"><filter><type-id>' . $typeId . '</type-id></filter><format><section>core</section><xml/></format></group>',
       array('record-id' => $recordId)
     );
 
     $things = array();
-    $className = HVClient::convertThingNameToClassName($thingName);
     $qp = $this->connection->getQueryPathResponse();
     $qpThings = $qp->branch()->find(':root thing');
     foreach ($qpThings as $qpThing) {
-      $things[] = new $className(qp('<?xml version="1.0"?>' . $qpThing->xml(), NULL, array('use_parser' => 'xml')));
+      $things[] = HealthRecordItemFactory::getThing(qp('<?xml version="1.0"?>' . $qpThing->xml(), NULL, array('use_parser' => 'xml')));
     }
 
     return $things;
+  }
+
+  public function putThings($things, $recordId) {
+    $payload = '';
+
+    if($things instanceof HealthRecordItemData) {
+      $things = array($things);
+    }
+
+    foreach($things as $thing) {
+      $payload .= $thing->getItemXml();
+    }
+
+    $this->connection->authenticatedWcRequest(
+      'PutThings',
+      '1',
+      $payload,
+      array('record-id' => $recordId)
+    );
   }
 
   public function setHealthVaultAuthInstance($healthVaultAuthInstance) {
@@ -106,31 +113,10 @@ class HVClient {
     return $this->healthVaultPlatform;
   }
 
-  private static function convertThingNameToClassName($thingName) {
-    if (!array_key_exists($thingName, HVClient::$classNames)) {
-      $className = preg_replace('/[^a-zA-Z0-9]/', ' ', $thingName);
-      HVClient::$classNames[$thingName] =
-        preg_replace_callback('/\s+(\w)/', function($matches) {
-         return strtoupper($matches[1]);
-        }, $className);
-    }
-
-    return HVClient::$classNames[$thingName];
-  }
-
-  private static function convertClassNameToThingName($className) {
-    if (in_array($className, HVClient::$classNames)) {
-      $thingNames = array_flip(HVClient::$classNames);
-      return $thingNames[$className];
-    }
-  }
-
   public static function autoLoader($class) {
     if (is_readable(__DIR__ . '/HVClientLib/' . $class . '.php')) {
-      require('HVClientLib/' . $class . '.php');
-    }
-    elseif (HVClient::convertClassNameToThingName($class)) {
-      class_alias('Thing', $class);
+      require(__DIR__ . '/HVClientLib/' . $class . '.php');
     }
   }
+
 }

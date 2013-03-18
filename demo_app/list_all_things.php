@@ -39,16 +39,32 @@ try {
 
   ob_flush();
 
-  print '<br><a href="list_all_things.php">List all things</a>';
-  print '<br><a href="files.php">Files example</a>';
+  foreach (HVRawConnector::$things as $thingName => $thingId) {
+    print "Thing: <b>$thingName</b><br>";
+    $things = $hv->getThings($thingId, $recordId);
+    foreach ($things as $thing) {
+      print htmlentities($thing->getXML());
+    }
+    print "<hr>";
+    ob_flush();
+  }
 
 }
 catch (HVRawConnectorUserNotAuthenticatedException $e) {
   print "You're not authenticated! ";
   printAuthenticationLink();
 }
-catch (Exception $e) {
+catch (HVRawConnectorAuthenticationExpiredException $e) {
   print "Your authentication expired! ";
+  printAuthenticationLink();
+}
+catch (HVRawConnectorAuthenticationExpiredException $e) {
+  print "Your authentication expired! ";
+  printAuthenticationLink();
+}
+catch (Exception $e) {
+  print $e->getMessage() . '<br>';
+  print $e->getCode() . '<br>';
   printAuthenticationLink();
 }
 
