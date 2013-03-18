@@ -29,7 +29,9 @@ abstract class HVClient_AbstractXmlEntity {
     else {
       $name = str_replace('_', '-', $name);
       if (isset($this->payload->$name)) {
-        return $this->payload->$name;
+        // typecast to string returns the value of a node instead of
+        // a reference to the internal simple xml object
+        return (string) $this->payload->$name;
       }
     }
 

@@ -47,6 +47,10 @@ catch (HVRawConnectorUserNotAuthenticatedException $e) {
   print "You're not authenticated! ";
   printAuthenticationLink();
 }
+catch (HVRawConnectorAuthenticationExpiredException $e) {
+  print "Your authentication expired! ";
+  printAuthenticationLink();
+}
 catch (Exception $e) {
   print "Your authentication expired! ";
   printAuthenticationLink();

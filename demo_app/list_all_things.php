@@ -58,10 +58,6 @@ catch (HVRawConnectorAuthenticationExpiredException $e) {
   print "Your authentication expired! ";
   printAuthenticationLink();
 }
-catch (HVRawConnectorAuthenticationExpiredException $e) {
-  print "Your authentication expired! ";
-  printAuthenticationLink();
-}
 catch (Exception $e) {
   print $e->getMessage() . '<br>';
   print $e->getCode() . '<br>';
