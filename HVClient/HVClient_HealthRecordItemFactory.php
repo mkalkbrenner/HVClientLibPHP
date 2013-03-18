@@ -8,10 +8,10 @@
 
 require_once 'HVRawConnector.php';
 
-spl_autoload_register('HealthRecordItemFactory::autoLoader');
+spl_autoload_register('HVClient_HealthRecordItemFactory::autoLoader');
 
 
-class HealthRecordItemFactory {
+class HVClient_HealthRecordItemFactory {
 
   private static $classNames = array();
   private static $xmlTemplateCache = array();
@@ -24,7 +24,7 @@ class HealthRecordItemFactory {
       $typeId = $type_or_qp->find(':root type-id')->text();
     }
     elseif (is_string($type_or_qp)) {
-      $typeId = HealthRecordItemFactory::getTypeId($type_or_qp);
+      $typeId = HVClient_HealthRecordItemFactory::getTypeId($type_or_qp);
       $template = __DIR__ . '/HealthRecordItem/XmlTemplates/' . $typeId . '.xml';
       if (is_readable($template)) {
         $type_or_qp = qp(file_get_contents($template), NULL, array('use_parser' => 'xml'));
@@ -36,7 +36,7 @@ class HealthRecordItemFactory {
 
     if ($typeId) {
       if ($type_or_qp instanceof QueryPath) {
-        if ($className = HealthRecordItemFactory::convertThingNameToClassName($thingNames[$typeId])) {
+        if ($className = HVClient_HealthRecordItemFactory::convertThingNameToClassName($thingNames[$typeId])) {
           return new $className($type_or_qp);
         }
         else {
@@ -63,20 +63,20 @@ class HealthRecordItemFactory {
   }
 
   private static function convertThingNameToClassName($thingName) {
-    if (!array_key_exists($thingName, HealthRecordItemFactory::$classNames)) {
+    if (!array_key_exists($thingName, HVClient_HealthRecordItemFactory::$classNames)) {
       $className = preg_replace('/[^a-zA-Z0-9]/', ' ', $thingName);
-      HealthRecordItemFactory::$classNames[$thingName] =
+      HVClient_HealthRecordItemFactory::$classNames[$thingName] = 'HVClient_' .
         preg_replace_callback('/\s+(\w)/', function($matches) {
           return strtoupper($matches[1]);
         }, $className);
     }
 
-    return HealthRecordItemFactory::$classNames[$thingName];
+    return HVClient_HealthRecordItemFactory::$classNames[$thingName];
   }
 
   private static function convertClassNameToThingName($className) {
-    if (in_array($className, HealthRecordItemFactory::$classNames)) {
-      $thingNames = array_flip(HealthRecordItemFactory::$classNames);
+    if (in_array($className, HVClient_HealthRecordItemFactory::$classNames)) {
+      $thingNames = array_flip(HVClient_HealthRecordItemFactory::$classNames);
       return $thingNames[$className];
     }
   }
@@ -86,8 +86,8 @@ class HealthRecordItemFactory {
       require(__DIR__ . '/HealthRecordItem/' . $class . '.php');
     }
     else {
-      if (HealthRecordItemFactory::convertClassNameToThingName($class)) {
-        class_alias('Thing', $class);
+      if (HVClient_HealthRecordItemFactory::convertClassNameToThingName($class)) {
+        class_alias('HVClient_Thing', $class);
       }
     }
   }

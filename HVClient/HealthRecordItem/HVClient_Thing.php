@@ -14,5 +14,5 @@
  *
  * @see http://msdn.microsoft.com/en-us/library/dd725217.aspx
  */
-class Thing extends HealthRecordItemData {
+class HVClient_Thing extends HVClient_HealthRecordItemData {
 }

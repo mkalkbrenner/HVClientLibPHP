@@ -10,7 +10,7 @@
  * Class HealthRecordItemData.
  * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.healthrecorditemdata.aspx
  */
-class HealthRecordItemData extends AbstractXmlEntity {
+class HVClient_HealthRecordItemData extends HVClient_AbstractXmlEntity {
 
   protected $typeId;
 

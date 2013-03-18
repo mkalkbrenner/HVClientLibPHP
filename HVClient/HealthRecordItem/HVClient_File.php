@@ -11,7 +11,7 @@
  * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.file.aspx
  * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.file_members.aspx
  */
-class File extends HealthRecordItemData {
+class HVClient_File extends HVClient_HealthRecordItemData {
 
   /**
    * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.file.createfromfilepath.aspx
@@ -23,7 +23,7 @@ class File extends HealthRecordItemData {
     if (is_readable($path)) {
       if ($content = file_get_contents($path)) {
 
-        $file = HealthRecordItemFactory::getThing('File');
+        $file = HVClient_HealthRecordItemFactory::getThing('File');
         $qp = $file->getQp();
         $qp->find(':root name')->text(basename($path));
         $qp->find(':root size')->text(filesize($path));
@@ -46,7 +46,7 @@ class File extends HealthRecordItemData {
   public static function createFromStream($stream, $name, $contentType) {
     if ($content = stream_get_contents($stream)) {
 
-      $file = HealthRecordItemFactory::getThing('File');
+      $file = HVClient_HealthRecordItemFactory::getThing('File');
       $qp = $file->getQp();
       $qp->find(':root name')->text($name);
       $qp->find(':root size')->text(strlen($content));

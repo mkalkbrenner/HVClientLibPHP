@@ -16,7 +16,7 @@ require_once 'Log.php';
  * @see http://pear.biologis.com
  */
 require_once 'HVRawConnector.php';
-require_once 'HVClientLib/HealthRecordItemFactory.php';
+require_once 'HVClient/HVClient_HealthRecordItemFactory.php';
 
 spl_autoload_register('HVClient::autoLoader');
 
@@ -50,12 +50,12 @@ class HVClient {
     $qp = $this->connection->getQueryPathResponse();
     $qpPersonInfo = $qp->find(':root person-info');
     if ($qpPersonInfo) {
-      return new PersonInfo(qp('<?xml version="1.0"?>' . $qpPersonInfo->xml(), NULL, array('use_parser' => 'xml')));
+      return new HVClient_PersonInfo(qp('<?xml version="1.0"?>' . $qpPersonInfo->xml(), NULL, array('use_parser' => 'xml')));
     }
   }
 
   public function getThings($thingNameOrTypeId, $recordId, $options = array()) {
-    $typeId = HealthRecordItemFactory::getTypeId($thingNameOrTypeId);
+    $typeId = HVClient_HealthRecordItemFactory::getTypeId($thingNameOrTypeId);
 
     $options += array(
       'group max' => 30,
@@ -72,7 +72,7 @@ class HVClient {
     $qp = $this->connection->getQueryPathResponse();
     $qpThings = $qp->branch()->find(':root thing');
     foreach ($qpThings as $qpThing) {
-      $things[] = HealthRecordItemFactory::getThing(qp('<?xml version="1.0"?>' . $qpThing->xml(), NULL, array('use_parser' => 'xml')));
+      $things[] = HVClient_HealthRecordItemFactory::getThing(qp('<?xml version="1.0"?>' . $qpThing->xml(), NULL, array('use_parser' => 'xml')));
     }
 
     return $things;
@@ -81,7 +81,7 @@ class HVClient {
   public function putThings($things, $recordId) {
     $payload = '';
 
-    if($things instanceof HealthRecordItemData) {
+    if($things instanceof HVClient_HealthRecordItemData) {
       $things = array($things);
     }
 
@@ -114,8 +114,8 @@ class HVClient {
   }
 
   public static function autoLoader($class) {
-    if (is_readable(__DIR__ . '/HVClientLib/' . $class . '.php')) {
-      require(__DIR__ . '/HVClientLib/' . $class . '.php');
+    if (is_readable(__DIR__ . '/HVClient/' . $class . '.php')) {
+      require(__DIR__ . '/HVClient/' . $class . '.php');
     }
   }
 

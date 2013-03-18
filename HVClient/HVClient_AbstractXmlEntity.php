@@ -6,7 +6,7 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
-abstract class AbstractXmlEntity {
+abstract class HVClient_AbstractXmlEntity {
 
   protected $qp;
   protected $simpleXML = NULL;

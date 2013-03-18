@@ -41,7 +41,7 @@ try {
 
   if (isset($_POST['submit']) && 'Upload' == $_POST['submit']) {
     $stream = fopen($_FILES['thefile']['tmp_name'], 'r');
-    $file = File::createFromStream($stream, $_FILES['thefile']['name'], $_FILES['thefile']['type']);
+    $file = HVClient_File::createFromStream($stream, $_FILES['thefile']['name'], $_FILES['thefile']['type']);
     fclose($stream);
 
     $hv->putThings($file, $recordId);
