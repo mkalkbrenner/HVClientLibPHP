@@ -25,7 +25,7 @@ In that case all it's dependencies will be installed automatically:
     pear channel-discover pear.querypath.org
     pear install biologis/HVClient
 
-This method will install HVClientLib as a library, but without the
+This method will install HVClientLibPHP as a library, but without the
 available demo application.
 
 
@@ -64,10 +64,12 @@ Meanwhile you can have a look at the demo_app source code.
 Demo
 ----
 
-The demo_app included in this repository queries a user's HealthVault record
-for all "[Things](http://developer.healthvault.com/pages/types/types.aspx)" and
-dumps the raw XML content. By default it uses the US pre production instance of
-HealthVault.
+The demo_app included in this repository currently offers two "features":
+* It queries a user's HealthVault record for all
+"[Things](http://developer.healthvault.com/pages/types/types.aspx)" and dumps the
+raw XML content. By default it uses the US pre production instance of HealthVault.
+* It lists all files uploaded to your selected health record and let you upload
+additional files.
 
 Simply put the HVClientLibPHP folder on a web server and access
 "demo_app/index.php".
