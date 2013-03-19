@@ -2,7 +2,7 @@ HVClientLibPHP
 ==============
 
 An easy to use PHP library to connect to
-[Microsoft HealthVault](https://www.healthvault.com/)
+[Microsoft® HealthVault™](https://www.healthvault.com/)
 on top of
 [HVRawConnectorPHP](https://github.com/mkalkbrenner/HVRawConnectorPHP/).
 It adds a nicer object oriented programming interface and hides (most) of the
@@ -72,7 +72,7 @@ raw XML content.
 additional files.
 
 By default it uses the US pre production instance of HealthVault.
- 
+
 To get started, follow the install instructions above and put the demo_app folder
 on a web server and access "demo_app/index.php".
 
@@ -86,4 +86,5 @@ Licence
 Sponsor
 -------
 [bio.logis](https://www.biologis.com) offers users of
-[pgsbox.de](https://pgsbox.de) to upload diagnostic reports to HealthVault.
+[pgsbox.de](https://pgsbox.de) a way to upload their diagnostic reports to
+HealthVault.

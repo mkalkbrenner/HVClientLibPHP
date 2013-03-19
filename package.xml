@@ -18,11 +18,11 @@
         <email>info@bio.logis.de</email>
         <active>yes</active>
     </lead>
-    <date>2013-03-18</date>
+    <date>2013-03-19</date>
 
     <version>
-        <release>1.0.0</release>
-        <api>1.0.0</api>
+        <release>1.0.1</release>
+        <api>1.0.1</api>
     </version>
 
     <stability>
@@ -32,7 +32,7 @@
 
     <license uri="https://raw.github.com/mkalkbrenner/HVClientLibPHP/master/LICENSE.txt">GPLv2</license>
     <notes>
-        First release.
+        added method disconnect.
     </notes>
 
     <contents>
@@ -99,6 +99,21 @@
     </phprelease>
 
     <changelog>
+        <release>
+            <version>
+                <release>1.0.1</release>
+                <api>1.0.1</api>
+            </version>
+            <stability>
+                <release>stable</release>
+                <api>alpha</api>
+            </stability>
+            <date>2013-03-19</date>
+            <license uri="https://raw.github.com/mkalkbrenner/HVClientLibPHP/master/LICENSE.txt">GPLv2</license>
+            <notes>
+                * added method disconnect
+            </notes>
+        </release>
         <release>
             <version>
                 <release>1.0.0</release>

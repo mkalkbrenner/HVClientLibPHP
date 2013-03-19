@@ -41,6 +41,12 @@ class HVClient {
     $this->connection = new HVRawConnector($this->appId, $thumbPrint, $privateKeyFile, $this->session, $this->healthVaultPlatform, $this->logger);
   }
 
+  public function disconnect() {
+    unset($this->session['healthVault']);
+    unset($this->connection);
+    $this->connection = NULL;
+  }
+
   public function getAuthenticationURL($redirectUrl) {
     return HVRawConnector::getAuthenticationURL($this->appId, $redirectUrl, $this->session, $this->healthVaultAuthInstance);
   }

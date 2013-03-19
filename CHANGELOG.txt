@@ -1,7 +1,7 @@
-HVClientLib 1.0.1 - 2013-xx-xx
+HVClientLib 1.0.1 - 2013-03-19
 ==============================
 
-* always return a string value in HVClient_AbstractXmlEntity::__get
+* added method disconnect
 
 
 HVClientLib 1.0.0 - 2013-03-18
