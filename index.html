@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>HVClientLibPHP by mkalkbrenner</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>HVClientLibPHP</h1>
+        <p>An easy to use PHP library to connect to Microsoft® HealthVault™.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/mkalkbrenner/HVClientLibPHP" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/mkalkbrenner/HVClientLibPHP/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/mkalkbrenner/HVClientLibPHP/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>HVClientLibPHP</h1>
+
+<p>An easy to use PHP library to connect to
+<a href="https://www.healthvault.com/">Microsoft® HealthVault™</a>
+on top of
+<a href="https://github.com/mkalkbrenner/HVRawConnectorPHP/">HVRawConnectorPHP</a>.
+It adds a nicer object oriented programming interface and hides (most) of the
+complicated XML parts in the HealthVault protocol.</p>
+
+<h2>Installation</h2>
+
+<p>HVClientLibPHP depends on
+<a href="https://github.com/mkalkbrenner/HVRawConnectorPHP/">HVRawConnectorPHP</a>.
+If you simply use the latest development version of HVClientLibPHP from github
+you have to ensure that HVRawConnectorPHP and all it's dependencies are
+installed.</p>
+
+<p>The latest stable version of HVClientLibPHP could be easily installed by pear.
+In that case all it's dependencies will be installed automatically:</p>
+
+<pre><code>pear channel-discover pear.biologis.com
+pear channel-discover pear.querypath.org
+pear install biologis/HVClient
+</code></pre>
+
+<p>This method will install HVClientLibPHP as a library, but without the
+available demo application.</p>
+
+<h2>Status</h2>
+
+<p>HVClientLibPHP is not a full featured HealthVault SDK, but should provide all
+the required stuff to create powerful HealthVault applications with PHP.</p>
+
+<p>It can basically handle all
+<a href="http://developer.healthvault.com/pages/types/types.aspx">Things</a> already,
+but over the time we will add some more convenience function to the representing
+classes.</p>
+
+<p>But the number of implemented
+<a href="http://developer.healthvault.com/pages/methods/methods.aspx">Methods</a> is very
+limited at the moment (the essential ones are available):</p>
+
+<ul>
+<li>GetPersonInfo</li>
+<li>GetThings</li>
+<li>PutThings</li>
+</ul><p>If you need more and understand the available
+<a href="http://developer.healthvault.com/default.aspx">Documentation</a>, you can always
+use HVRawConnectorPHP directly. In that case you should ideally contribute your
+work to let HVClientLibPHP grow faster.</p>
+
+<h2>Usage</h2>
+
+<p>Some examples will follow later.</p>
+
+<p>Meanwhile you can have a look at the demo_app source code.</p>
+
+<h2>Demo</h2>
+
+<p>The demo_app included in this repository currently demonstrates two features:</p>
+
+<ul>
+<li>It queries a user's HealthVault record for all
+"<a href="http://developer.healthvault.com/pages/types/types.aspx">Things</a>" and dumps the
+raw XML content.</li>
+<li>It lists all files uploaded to your selected health record and lets you upload
+additional files.</li>
+</ul><p>By default it uses the US pre production instance of HealthVault.</p>
+
+<p>To get started, follow the install instructions above and put the demo_app folder
+on a web server and access "demo_app/index.php".</p>
+
+<h2>Licence</h2>
+
+<p><a href="https://raw.github.com/mkalkbrenner/HVClientLibPHP/master/LICENSE.txt">GPLv2</a>.</p>
+
+<h2>Sponsor</h2>
+
+<p><a href="https://www.biologis.com">bio.logis</a> offers users of
+<a href="https://pgsbox.de">pgsbox.de</a> a way to upload their diagnostic reports to
+HealthVault.</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/mkalkbrenner">mkalkbrenner</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
