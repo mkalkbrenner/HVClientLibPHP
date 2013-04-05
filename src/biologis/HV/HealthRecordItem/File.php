@@ -6,12 +6,16 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
+namespace biologis\HV\HealthRecordItem;
+
+use biologis\HV\HealthRecordItemData;
+
 /**
  * Class File.
  * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.file.aspx
  * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.file_members.aspx
  */
-class HVClient_File extends HVClient_HealthRecordItemData {
+class File extends HealthRecordItemData {
 
   /**
    * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.file.createfromfilepath.aspx
@@ -23,7 +27,7 @@ class HVClient_File extends HVClient_HealthRecordItemData {
     if (is_readable($path)) {
       if ($content = file_get_contents($path)) {
 
-        $file = HVClient_HealthRecordItemFactory::getThing('File');
+        $file = HealthRecordItemFactory::getThing('File');
         $qp = $file->getQp();
         $qp->find(':root name')->text(basename($path));
         $qp->find(':root size')->text(filesize($path));
@@ -46,7 +50,7 @@ class HVClient_File extends HVClient_HealthRecordItemData {
   public static function createFromStream($stream, $name, $contentType) {
     if ($content = stream_get_contents($stream)) {
 
-      $file = HVClient_HealthRecordItemFactory::getThing('File');
+      $file = HealthRecordItemFactory::getThing('File');
       $qp = $file->getQp();
       $qp->find(':root name')->text($name);
       $qp->find(':root size')->text(strlen($content));

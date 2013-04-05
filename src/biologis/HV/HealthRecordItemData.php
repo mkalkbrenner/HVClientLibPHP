@@ -6,11 +6,13 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
+namespace biologis\HV;
+
 /**
  * Class HealthRecordItemData.
  * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.healthrecorditemdata.aspx
  */
-class HVClient_HealthRecordItemData extends HVClient_AbstractXmlEntity {
+class HealthRecordItemData extends AbstractXmlEntity {
 
   protected $typeId;
 

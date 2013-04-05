@@ -6,6 +6,10 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
+namespace biologis\HV\HealthRecordItem;
+
+use biologis\HV\HealthRecordItemData;
+
 /**
  * Class Thing.
  *
@@ -14,5 +18,5 @@
  *
  * @see http://msdn.microsoft.com/en-us/library/dd725217.aspx
  */
-class HVClient_Thing extends HVClient_HealthRecordItemData {
+class Thing extends HealthRecordItemData {
 }

@@ -6,7 +6,12 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
-require_once '../HVClient.php';
+use biologis\HV\HVClient;
+use biologis\HV\HealthRecordItem\File;
+use biologis\HV\HVRawConnectorUserNotAuthenticatedException;
+use biologis\HV\HVRawConnectorAuthenticationExpiredException;
+
+require '../vendor/autoload.php';
 
 $appId = file_get_contents('app.id');
 
@@ -41,7 +46,7 @@ try {
 
   if (isset($_POST['submit']) && 'Upload' == $_POST['submit']) {
     $stream = fopen($_FILES['thefile']['tmp_name'], 'r');
-    $file = HVClient_File::createFromStream($stream, $_FILES['thefile']['name'], $_FILES['thefile']['type']);
+    $file = File::createFromStream($stream, $_FILES['thefile']['name'], $_FILES['thefile']['type']);
     fclose($stream);
 
     $hv->putThings($file, $recordId);

@@ -6,7 +6,11 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
-require_once '../HVClient.php';
+use biologis\HV\HVClient;
+use biologis\HV\HVRawConnectorUserNotAuthenticatedException;
+use biologis\HV\HVRawConnectorAuthenticationExpiredException;
+
+require '../vendor/autoload.php';
 
 $appId = file_get_contents('app.id');
 

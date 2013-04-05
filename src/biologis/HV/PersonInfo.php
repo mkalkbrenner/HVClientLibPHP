@@ -6,9 +6,11 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
-class HVClient_PersonInfo extends HVClient_AbstractXmlEntity {
+namespace biologis\HV;
 
-  public function __construct(QueryPath $qp) {
+class PersonInfo extends AbstractXmlEntity {
+
+  public function __construct(\QueryPath $qp) {
     $this->qp = $qp;
   }
 

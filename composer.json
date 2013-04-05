@@ -1,0 +1,29 @@
+{
+    "name": "biologis/hv-client-lib",
+    "type": "library",
+    "description": "Easy to use lightweight PHP library to connect to Microsoft HealthVault.",
+    "keywords": ["healthvault", "xml"],
+    "homepage": "https://github.com/mkalkbrenner/HVClientLibPHP",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Markus Kalkbenner",
+            "email": "info@bio.logis.de"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.php.net"
+        }
+    ],
+    "require": {
+        "biologis/hv-raw-connector": "dev-master",
+        "psr/log": "1.0.0"
+    },
+    "autoload":{
+        "psr-0":{
+            "biologis": "src/"
+        }
+    }
+}

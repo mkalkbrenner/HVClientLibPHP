@@ -6,12 +6,9 @@
  * @author Markus Kalkbrenner <info@bio.logis.de>
  */
 
-require_once 'HVRawConnector.php';
+namespace biologis\HV;
 
-spl_autoload_register('HVClient_HealthRecordItemFactory::autoLoader');
-
-
-class HVClient_HealthRecordItemFactory {
+class HealthRecordItemFactory {
 
   private static $classNames = array();
   private static $xmlTemplateCache = array();
@@ -20,11 +17,11 @@ class HVClient_HealthRecordItemFactory {
     $thingNames = array_flip(HVRawConnector::$things);
     $typeId = '';
 
-    if ($type_or_qp instanceof QueryPath) {
+    if ($type_or_qp instanceof \QueryPath) {
       $typeId = $type_or_qp->find(':root type-id')->text();
     }
     elseif (is_string($type_or_qp)) {
-      $typeId = HVClient_HealthRecordItemFactory::getTypeId($type_or_qp);
+      $typeId = HealthRecordItemFactory::getTypeId($type_or_qp);
       $template = __DIR__ . '/HealthRecordItem/XmlTemplates/' . $typeId . '.xml';
       if (is_readable($template)) {
         $type_or_qp = qp(file_get_contents($template), NULL, array('use_parser' => 'xml'));
@@ -35,8 +32,8 @@ class HVClient_HealthRecordItemFactory {
     }
 
     if ($typeId) {
-      if ($type_or_qp instanceof QueryPath) {
-        if ($className = HVClient_HealthRecordItemFactory::convertThingNameToClassName($thingNames[$typeId])) {
+      if ($type_or_qp instanceof \QueryPath) {
+        if ($className = HealthRecordItemFactory::convertThingNameToClassName($thingNames[$typeId])) {
           return new $className($type_or_qp);
         }
         else {
@@ -63,32 +60,32 @@ class HVClient_HealthRecordItemFactory {
   }
 
   private static function convertThingNameToClassName($thingName) {
-    if (!array_key_exists($thingName, HVClient_HealthRecordItemFactory::$classNames)) {
+    if (!array_key_exists($thingName, HealthRecordItemFactory::$classNames)) {
       $className = preg_replace('/[^a-zA-Z0-9]/', ' ', $thingName);
-      HVClient_HealthRecordItemFactory::$classNames[$thingName] = 'HVClient_' .
+      $className =
         preg_replace_callback('/\s+(\w)/', function($matches) {
           return strtoupper($matches[1]);
         }, $className);
+
+      $fullClassName = 'biologis\\HV\\HealthRecordItem\\' . $className;
+
+      if (!is_readable(__DIR__ . '/HealthRecordItem/' . $className . '.php')) {
+        if (HealthRecordItemFactory::convertClassNameToThingName($className)) {
+          class_alias('biologis\\HV\\HealthRecordItem\\Thing',
+            $fullClassName);
+        }
+      }
+
+      HealthRecordItemFactory::$classNames[$thingName] = $fullClassName;
     }
 
-    return HVClient_HealthRecordItemFactory::$classNames[$thingName];
+    return HealthRecordItemFactory::$classNames[$thingName];
   }
 
   private static function convertClassNameToThingName($className) {
-    if (in_array($className, HVClient_HealthRecordItemFactory::$classNames)) {
-      $thingNames = array_flip(HVClient_HealthRecordItemFactory::$classNames);
+    if (in_array($className, HealthRecordItemFactory::$classNames)) {
+      $thingNames = array_flip(HealthRecordItemFactory::$classNames);
       return $thingNames[$className];
-    }
-  }
-
-  public static function autoLoader($class) {
-    if (is_readable(__DIR__ . '/HealthRecordItem/' . $class . '.php')) {
-      require(__DIR__ . '/HealthRecordItem/' . $class . '.php');
-    }
-    else {
-      if (HVClient_HealthRecordItemFactory::convertClassNameToThingName($class)) {
-        class_alias('HVClient_Thing', $class);
-      }
     }
   }
 }
