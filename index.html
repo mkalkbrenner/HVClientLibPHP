@@ -65,7 +65,7 @@ the 'require' section of your <code>composer.json</code>:</p>
 <span class="p">}</span>
 </pre></div>
 
-<p>Earlier version of HVClientLibPHP could also installed by pear including all
+<p>Earlier version of HVClientLibPHP could also be installed by pear including all
 it's dependencies:</p>
 
 <pre><code>pear channel-discover pear.biologis.com
@@ -115,8 +115,51 @@ work to let HVClientLibPHP grow faster.</p>
 <span class="p">}</span>
 </pre></div>
 
+<p>Connect a different HealthVault™ instance using a different country and
+language:</p>
+
+<div class="highlight"><pre><span class="nv">$hv</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HVClient</span><span class="p">(</span><span class="nv">$yourAppId</span><span class="p">,</span> <span class="nv">$_SESSION</span><span class="p">);</span>
+
+<span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">setHealthVaultPlatform</span><span class="p">(</span>
+  <span class="s1">'https://platform.healthvault-ppe.co.uk/platform/wildcat.ashx'</span><span class="p">);</span>
+<span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">setLanguage</span><span class="p">(</span><span class="s1">'de'</span><span class="p">);</span>
+<span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">setCountry</span><span class="p">(</span><span class="s1">'DE'</span><span class="p">);</span>
+
+<span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">(</span><span class="nv">$yourCertThumbPrint</span><span class="p">,</span> <span class="nv">$yourPrivateKey</span><span class="p">);</span>
+</pre></div>
+
+<p>To connect your PHP based HealthVault™ app, your app needs to authorized by
+the user and the user himself needs to be authenticated against HealthVault™.
+If any of these requirements are not met, HVClientLibPHP throws corresponding
+exceptions. In this case you can create a link that takes the user to
+HealthVault™ to authenticate himself and to authorize your app and takes him
+back to your site afterwards:</p>
+
+<div class="highlight"><pre><span class="nv">$hv</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HVClient</span><span class="p">(</span><span class="nv">$yourAppId</span><span class="p">,</span> <span class="nv">$_SESSION</span><span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+  <span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">(</span><span class="nv">$yourCertThumbPrint</span><span class="p">,</span> <span class="nv">$yourPrivateKey</span><span class="p">);</span>
+  <span class="nv">$personInfo</span> <span class="o">=</span> <span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">getPersonInfo</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">catch</span> <span class="p">(</span><span class="nx">HVRawConnectorUserNotAuthenticatedException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">print</span> <span class="s1">'&lt;a href="'</span> <span class="o">.</span>
+   <span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">getAuthenticationURL</span><span class="p">(</span><span class="nv">$yourReturnURL</span><span class="p">)</span> <span class="o">.</span>
+   <span class="s2">"&gt;Authenticate&lt;/a&gt;';</span>
+<span class="s2">}</span>
+</pre></div>
+
 <p>For more examples have a look at the demo_app source code included in
 HVClientLibPHP.</p>
+
+<p>The HVClientLibPHP will never provide an API to register a new HealthVault™ app
+or to guide you through the on-boarding process, because this could be easily
+done using the
+<a href="http://config.healthvault-ppe.com/">Application Configuration Center</a>.</p>
+
+<p>So register your app there first and start coding afterwards.</p>
+
+<p>The demo_app (aka Hello World) is already registered. For your first tests you
+can also use it's credentials to start right away.</p>
 
 <h2>Demo</h2>
 
