@@ -66,7 +66,7 @@ work to let HVClientLibPHP grow faster.
 Usage
 -----
 
-This is a simple example to display all weight mesurements:
+This is a simple example to display all weight measurements:
 
 ```php
 $hv = new HVClient($yourAppId, $_SESSION);
