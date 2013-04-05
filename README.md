@@ -66,9 +66,23 @@ work to let HVClientLibPHP grow faster.
 Usage
 -----
 
-Some examples will follow later.
+This is a simple example to display all weight mesurements:
 
-Meanwhile you can have a look at the demo_app source code.
+```php
+$hv = new HVClient($yourAppId, $_SESSION);
+$hv->connect($yourCertThumbPrint, $yourPrivateKey);
+
+$personInfo = $hv->getPersonInfo();
+$recordId = $personInfo->selected_record_id;
+
+$things = $hv->getThings('Weight Measurement', $recordId);
+foreach ($things as $thing) {
+  print $thing->weight->value->kg;
+}
+```
+
+For more examples have a look at the demo_app source code included in
+HVClientLibPHP.
 
 
 Demo
