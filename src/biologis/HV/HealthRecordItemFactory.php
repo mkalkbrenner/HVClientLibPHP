@@ -8,6 +8,8 @@
 
 namespace biologis\HV;
 
+use QueryPath\Query;
+
 class HealthRecordItemFactory {
 
   private static $classNames = array();
@@ -17,8 +19,8 @@ class HealthRecordItemFactory {
     $thingNames = array_flip(HVRawConnector::$things);
     $typeId = '';
 
-    if ($type_or_qp instanceof \QueryPath) {
-      $typeId = $type_or_qp->find(':root type-id')->text();
+    if ($type_or_qp instanceof Query) {
+      $typeId = $type_or_qp->top()->find('type-id')->text();
     }
     elseif (is_string($type_or_qp)) {
       $typeId = HealthRecordItemFactory::getTypeId($type_or_qp);
@@ -32,7 +34,7 @@ class HealthRecordItemFactory {
     }
 
     if ($typeId) {
-      if ($type_or_qp instanceof \QueryPath) {
+      if ($type_or_qp instanceof Query) {
         if ($className = HealthRecordItemFactory::convertThingNameToClassName($thingNames[$typeId])) {
           return new $className($type_or_qp);
         }
@@ -70,10 +72,7 @@ class HealthRecordItemFactory {
       $fullClassName = 'biologis\\HV\\HealthRecordItem\\' . $className;
 
       if (!is_readable(__DIR__ . '/HealthRecordItem/' . $className . '.php')) {
-        if (HealthRecordItemFactory::convertClassNameToThingName($className)) {
-          class_alias('biologis\\HV\\HealthRecordItem\\Thing',
-            $fullClassName);
-        }
+        class_alias('biologis\\HV\\HealthRecordItem\\Thing', $fullClassName);
       }
 
       HealthRecordItemFactory::$classNames[$thingName] = $fullClassName;

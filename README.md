@@ -14,12 +14,22 @@ Installation
 
 HVClientLibPHP depends on
 [HVRawConnectorPHP](https://github.com/mkalkbrenner/HVRawConnectorPHP/).
-If you simply use the latest development version of HVClientLibPHP from github
-you have to ensure that HVRawConnectorPHP and all it's dependencies are
-installed.
 
-The latest stable version of HVClientLibPHP could be easily installed by pear.
-In that case all it's dependencies will be installed automatically:
+You can simply use composer to install HVRawConnectorPHP and it's dependencies.
+
+To add HVClientLibPHP as a library in your project, add something like that to
+the 'require' section of your `composer.json`:
+
+```json
+{
+  "require": {
+    "biologis/hv-client-lib": "dev-master"
+  }
+}
+```
+
+Earlier version of HVClientLibPHP could also installed by pear including all
+it's dependencies:
 
     pear channel-discover pear.biologis.com
     pear channel-discover pear.querypath.org

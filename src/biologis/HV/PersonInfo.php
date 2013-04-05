@@ -8,21 +8,23 @@
 
 namespace biologis\HV;
 
+use QueryPath\Query;
+
 class PersonInfo extends AbstractXmlEntity {
 
-  public function __construct(\QueryPath $qp) {
+  public function __construct(Query $qp) {
     $this->qp = $qp;
   }
 
   public function getRecordList() {
     $records = array();
-    foreach ($this->qp->find(':root record') as $record) {
+    foreach ($this->qp->top()->find('record') as $record) {
       $records[$record->attr('id')] = $record->text();
     }
   }
 
   public function getRecordById($id) {
-    $qpRecord = $this->qp->branch()->find(':root record#' . $id);
+    $qpRecord = $this->qp->top()->branch()->find('record#' . $id);
     $this->qp->top();
     if ($qpRecord) {
       return (object) array(

@@ -61,6 +61,8 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
     if ($language) {
       $this->connector->setLanguage($language);
     }
+
+    $this->connector->connect();
   }
 
   public function disconnect() {
@@ -74,55 +76,70 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
   }
 
   public function getPersonInfo() {
-    $this->connector->authenticatedWcRequest('GetPersonInfo');
-    $qp = $this->connector->getQueryPathResponse();
-    $qpPersonInfo = $qp->find(':root person-info');
-    if ($qpPersonInfo) {
-      return new PersonInfo(qp('<?xml version="1.0"?>' . $qpPersonInfo->xml(), NULL, array('use_parser' => 'xml')));
+    if ($this->connector) {
+      $this->connector->authenticatedWcRequest('GetPersonInfo');
+      $qp = $this->connector->getQueryPathResponse();
+      $qpPersonInfo = $qp->find('person-info');
+      if ($qpPersonInfo) {
+        return new PersonInfo(qp('<?xml version="1.0"?>' . $qpPersonInfo->xml(), NULL, array('use_parser' => 'xml')));
+      }
+    }
+    else {
+      throw new HVClientNotConnectedException();
     }
   }
 
   public function getThings($thingNameOrTypeId, $recordId, $options = array()) {
-    $typeId = HealthRecordItemFactory::getTypeId($thingNameOrTypeId);
+    if ($this->connector) {
+      $typeId = HealthRecordItemFactory::getTypeId($thingNameOrTypeId);
 
-    $options += array(
-      'group max' => 30,
-    );
+      $options += array(
+        'group max' => 30,
+      );
 
-    $this->connector->authenticatedWcRequest(
-      'GetThings',
-      '3',
-      '<group max="' . $options['group max'] . '"><filter><type-id>' . $typeId . '</type-id></filter><format><section>core</section><xml/></format></group>',
-      array('record-id' => $recordId)
-    );
+      $this->connector->authenticatedWcRequest(
+        'GetThings',
+        '3',
+        '<group max="' . $options['group max'] . '"><filter><type-id>' . $typeId . '</type-id></filter><format><section>core</section><xml/></format></group>',
+        array('record-id' => $recordId)
+      );
 
-    $things = array();
-    $qp = $this->connector->getQueryPathResponse();
-    $qpThings = $qp->branch()->find(':root thing');
-    foreach ($qpThings as $qpThing) {
-      $things[] = HealthRecordItemFactory::getThing(qp('<?xml version="1.0"?>' . $qpThing->xml(), NULL, array('use_parser' => 'xml')));
+      $things = array();
+      $qp = $this->connector->getQueryPathResponse();
+      $qpThings = $qp->branch()->find('thing');
+      foreach ($qpThings as $qpThing) {
+        $things[] = HealthRecordItemFactory::getThing(qp('<?xml version="1.0"?>' . $qpThing->xml(), NULL, array('use_parser' => 'xml')));
+      }
+
+      return $things;
     }
-
-    return $things;
+    else {
+      throw new HVClientNotConnectedException();
+    }
   }
 
   public function putThings($things, $recordId) {
-    $payload = '';
+    if ($this->connector) {
+      $payload = '';
 
-    if($things instanceof HealthRecordItemData) {
-      $things = array($things);
+      if($things instanceof HealthRecordItemData) {
+        $things = array($things);
+      }
+
+      foreach($things as $thing) {
+        $payload .= $thing->getItemXml();
+      }
+
+      $this->connector->authenticatedWcRequest(
+        'PutThings',
+        '1',
+        $payload,
+        array('record-id' => $recordId)
+      );
     }
-
-    foreach($things as $thing) {
-      $payload .= $thing->getItemXml();
+    else {
+      throw new HVClientNotConnectedException();
     }
-
-    $this->connector->authenticatedWcRequest(
-      'PutThings',
-      '1',
-      $payload,
-      array('record-id' => $recordId)
-    );
   }
 
   public function setHealthVaultAuthInstance($healthVaultAuthInstance) {
@@ -150,3 +167,5 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
   }
 
 }
+
+class HVClientNotConnectedException extends \Exception {}

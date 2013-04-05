@@ -9,6 +9,7 @@
 namespace biologis\HV\HealthRecordItem;
 
 use biologis\HV\HealthRecordItemData;
+use biologis\HV\HealthRecordItemFactory;
 
 /**
  * Class File.
@@ -29,10 +30,10 @@ class File extends HealthRecordItemData {
 
         $file = HealthRecordItemFactory::getThing('File');
         $qp = $file->getQp();
-        $qp->find(':root name')->text(basename($path));
-        $qp->find(':root size')->text(filesize($path));
-        $qp->find(':root content-type text')->text(mime_content_type($path));
-        $qp->find(':root data-other')->text(base64_encode($content));
+        $qp->find('name')->text(basename($path))->top()
+          ->find('size')->text(filesize($path))->top()
+          ->find('content-type text')->text(mime_content_type($path))->top()
+          ->find('data-other')->text(base64_encode($content))->top();
 
         return $file;
       }
@@ -52,10 +53,10 @@ class File extends HealthRecordItemData {
 
       $file = HealthRecordItemFactory::getThing('File');
       $qp = $file->getQp();
-      $qp->find(':root name')->text($name);
-      $qp->find(':root size')->text(strlen($content));
-      $qp->find(':root content-type text')->text($contentType);
-      $qp->find(':root data-other')->text(base64_encode($content));
+      $qp->find('name')->text($name)->top()
+        ->find('size')->text(strlen($content))->top()
+        ->find('content-type text')->text($contentType)->top()
+        ->find('data-other')->text(base64_encode($content))->top();
 
       return $file;
     }

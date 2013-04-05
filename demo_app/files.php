@@ -44,7 +44,7 @@ try {
 
   ob_flush();
 
-  if (isset($_POST['submit']) && 'Upload' == $_POST['submit']) {
+  if (isset($_POST['submit']) && 'Upload' == $_POST['submit'] && !empty($_FILES['thefile']['tmp_name'])) {
     $stream = fopen($_FILES['thefile']['tmp_name'], 'r');
     $file = File::createFromStream($stream, $_FILES['thefile']['name'], $_FILES['thefile']['type']);
     fclose($stream);

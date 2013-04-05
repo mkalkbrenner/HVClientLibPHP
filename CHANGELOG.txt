@@ -1,3 +1,10 @@
+HVClientLib 1.2.0 - 2013-xx-xx
+=================================
+
+* Major refactoring to support composer and to be dependency injection friendly
+* QueryPath 3.x upgrade
+
+
 HVClientLib 1.0.1 - 2013-03-19
 ==============================
 

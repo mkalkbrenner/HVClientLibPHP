@@ -40,7 +40,7 @@ abstract class AbstractXmlEntity {
 
 
   public function getQp() {
-    return $this->qp;
+    return $this->qp->top();
   }
 
   public function getXML() {

@@ -8,6 +8,8 @@
 
 namespace biologis\HV;
 
+use QueryPath\Query;
+
 /**
  * Class HealthRecordItemData.
  * @see http://msdn.microsoft.com/en-us/library/microsoft.health.itemtypes.healthrecorditemdata.aspx
@@ -16,9 +18,9 @@ class HealthRecordItemData extends AbstractXmlEntity {
 
   protected $typeId;
 
-  public function __construct(QueryPath $qp) {
+  public function __construct(Query $qp) {
     $this->qp = $qp;
-    $this->typeId = $this->qp->find(':root type-id')->text();
+    $this->typeId = $this->qp->top()->find('type-id')->text();
     $this->payloadElement = 'data-xml';
   }
 

@@ -7,6 +7,7 @@
  */
 
 use biologis\HV\HVClient;
+use biologis\HV\HVRawConnector;
 use biologis\HV\HVRawConnectorUserNotAuthenticatedException;
 use biologis\HV\HVRawConnectorAuthenticationExpiredException;
 
