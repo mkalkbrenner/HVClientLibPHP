@@ -51,13 +51,22 @@ complicated XML parts in the HealthVault protocol.</p>
 <h2>Installation</h2>
 
 <p>HVClientLibPHP depends on
-<a href="https://github.com/mkalkbrenner/HVRawConnectorPHP/">HVRawConnectorPHP</a>.
-If you simply use the latest development version of HVClientLibPHP from github
-you have to ensure that HVRawConnectorPHP and all it's dependencies are
-installed.</p>
+<a href="https://github.com/mkalkbrenner/HVRawConnectorPHP/">HVRawConnectorPHP</a>.</p>
 
-<p>The latest stable version of HVClientLibPHP could be easily installed by pear.
-In that case all it's dependencies will be installed automatically:</p>
+<p>You can simply use composer to install HVRawConnectorPHP and it's dependencies.</p>
+
+<p>To add HVClientLibPHP as a library in your project, add something like that to
+the 'require' section of your <code>composer.json</code>:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">"require"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">"biologis/hv-client-lib"</span><span class="p">:</span> <span class="s2">"dev-master"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Earlier version of HVClientLibPHP could also installed by pear including all
+it's dependencies:</p>
 
 <pre><code>pear channel-discover pear.biologis.com
 pear channel-discover pear.querypath.org
@@ -92,9 +101,22 @@ work to let HVClientLibPHP grow faster.</p>
 
 <h2>Usage</h2>
 
-<p>Some examples will follow later.</p>
+<p>This is a simple example to display all weight measurements:</p>
 
-<p>Meanwhile you can have a look at the demo_app source code.</p>
+<div class="highlight"><pre><span class="nv">$hv</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HVClient</span><span class="p">(</span><span class="nv">$yourAppId</span><span class="p">,</span> <span class="nv">$_SESSION</span><span class="p">);</span>
+<span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">(</span><span class="nv">$yourCertThumbPrint</span><span class="p">,</span> <span class="nv">$yourPrivateKey</span><span class="p">);</span>
+
+<span class="nv">$personInfo</span> <span class="o">=</span> <span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">getPersonInfo</span><span class="p">();</span>
+<span class="nv">$recordId</span> <span class="o">=</span> <span class="nv">$personInfo</span><span class="o">-&gt;</span><span class="na">selected_record_id</span><span class="p">;</span>
+
+<span class="nv">$things</span> <span class="o">=</span> <span class="nv">$hv</span><span class="o">-&gt;</span><span class="na">getThings</span><span class="p">(</span><span class="s1">'Weight Measurement'</span><span class="p">,</span> <span class="nv">$recordId</span><span class="p">);</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$things</span> <span class="k">as</span> <span class="nv">$thing</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">print</span> <span class="nv">$thing</span><span class="o">-&gt;</span><span class="na">weight</span><span class="o">-&gt;</span><span class="na">value</span><span class="o">-&gt;</span><span class="na">kg</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>For more examples have a look at the demo_app source code included in
+HVClientLibPHP.</p>
 
 <h2>Demo</h2>
 
