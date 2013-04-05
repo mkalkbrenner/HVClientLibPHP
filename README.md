@@ -28,7 +28,7 @@ the 'require' section of your `composer.json`:
 }
 ```
 
-Earlier version of HVClientLibPHP could also installed by pear including all
+Earlier version of HVClientLibPHP could also be installed by pear including all
 it's dependencies:
 
     pear channel-discover pear.biologis.com
@@ -81,8 +81,53 @@ foreach ($things as $thing) {
 }
 ```
 
+Connect a different HealthVault™ instance using a different country and
+language:
+
+```php
+$hv = new HVClient($yourAppId, $_SESSION);
+
+$hv->setHealthVaultPlatform(
+  'https://platform.healthvault-ppe.co.uk/platform/wildcat.ashx');
+$hv->setLanguage('de');
+$hv->setCountry('DE');
+
+$hv->connect($yourCertThumbPrint, $yourPrivateKey);
+```
+
+To connect your PHP based HealthVault™ app, your app needs to authorized by
+the user and the user himself needs to be authenticated against HealthVault™.
+If any of these requirements are not met, HVClientLibPHP throws corresponding
+exceptions. In this case you can create a link that takes the user to
+HealthVault™ to authenticate himself and to authorize your app and takes him
+back to your site afterwards:
+
+```php
+$hv = new HVClient($yourAppId, $_SESSION);
+
+try {
+  $hv->connect($yourCertThumbPrint, $yourPrivateKey);
+  $personInfo = $hv->getPersonInfo();
+}
+catch (HVRawConnectorUserNotAuthenticatedException $e) {
+ print '<a href="' .
+   $hv->getAuthenticationURL($yourReturnURL) .
+   ">Authenticate</a>';
+}
+```
+
 For more examples have a look at the demo_app source code included in
 HVClientLibPHP.
+
+The HVClientLibPHP will never provide an API to register a new HealthVault™ app
+or to guide you through the on-boarding process, because this could be easily
+done using the
+[Application Configuration Center](http://config.healthvault-ppe.com/).
+
+So register your app there first and start coding afterwards.
+
+The demo_app (aka Hello World) is already registered. For your first tests you
+can also use it's credentials to start right away.
 
 
 Demo
