@@ -1,5 +1,5 @@
-HVClientLib 1.2.0 - 2013-xx-xx
-=================================
+HVClientLib 1.2.0 - 2013-04-08
+==============================
 
 * Major refactoring to support composer and to be dependency injection friendly
 * QueryPath 3.x upgrade
