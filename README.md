@@ -28,6 +28,18 @@ the 'require' section of your `composer.json`:
 }
 ```
 
+If composer complains about an unknown pear channel, add this to your `composer.json`:
+```json
+{
+  "repositories": [
+    {
+      "type": "pear",
+      "url": "http://pear.php.net"
+    }
+  ]
+}
+```
+
 Earlier version of HVClientLibPHP could also be installed by pear including all
 it's dependencies:
 
@@ -155,5 +167,6 @@ Licence
 Sponsor
 -------
 [bio.logis](https://www.biologis.com) offers users of
-[pgsbox.de](https://pgsbox.de) a way to upload their diagnostic reports to
-HealthVault.
+[pgsbox.de](https://pgsbox.com)[pgsbox.com] and (https://pgsbox.de) a way to
+upload their diagnostic reports to HealthVault.
+
