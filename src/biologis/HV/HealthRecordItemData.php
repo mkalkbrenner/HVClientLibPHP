@@ -52,4 +52,50 @@ class HealthRecordItemData extends AbstractXmlEntity {
       throw new Exception();
     }
   }
+
+  /**
+   * Helper function to set a timestamp in a Health Record Item.
+   *
+   * Using simple unix timestamps is easier than creating a something like a
+   * HealthServiceDateTime class in php. This helper function serializes a
+   * timestamp in a XML format like HealthServiceDateTime.
+   *
+   * @see http://msdn.microsoft.com/en-us/library/dd726570.aspx
+   *
+   * @param $selector
+   * @param int $timestamp
+   */
+  public function setTimestamp($selector, $timestamp = 0) {
+    if (!$timestamp) {
+      $timestamp = time();
+    }
+
+    $qpElement = $this->qp->top()->branch()->find($selector);
+    $qpElement->find('date')->replaceWith('<date>' . date('<\y>Y</\y><\m>n</\m><\d>j</\d>', $timestamp). '</date>');
+    $qpElement->find('time')->replaceWith('<time>' . date('<\h>H</\h><\m>i</\m><\s>s</\s><\f>0</\f>', $timestamp). '</time>');
+  }
+
+  /**
+   * Helper function to get a timestamp from a Health Record Item.
+   *
+   * Using simple unix timestamps is easier than creating a something like a
+   * HealthServiceDateTime class in php. This helper function creates a
+   * timestamp from a HealthServiceDateTime serialized as XML.
+   *
+   * @see http://msdn.microsoft.com/en-us/library/dd726570.aspx
+
+   * @param $selector
+   * @return int
+   */
+  public function getTimestamp($selector) {
+    $qpElement = $this->qp->top()->branch()->find($selector);
+    return mktime(
+      $qpElement->branch()->find('h')->text(),
+      $qpElement->branch()->find('time m')->text(),
+      $qpElement->branch()->find('s')->text(),
+      $qpElement->branch()->find('date m')->text(),
+      $qpElement->branch()->find('d')->text(),
+      $qpElement->branch()->find('y')->text()
+    );
+  }
 }
