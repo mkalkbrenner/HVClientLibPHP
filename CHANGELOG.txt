@@ -1,3 +1,13 @@
+HVClientLib 1.2.1 - 2013-xx-xx
+==============================
+
+* introduced generic HVClientException
+* added helper functions HealthRecordItemData:setTimestamp() and
+  HealthRecordItemData:getTimestamp() to work with simply unix timestamps
+  instead of creating a PHP version of HealthServiceDateTime class
+* added Weight Measurement example
+
+
 HVClientLib 1.2.0 - 2013-04-08
 ==============================
 
