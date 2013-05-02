@@ -1,3 +1,9 @@
+HVClientLib 1.2.1 - 2013-xx-xx
+==============================
+
+* Introduced generic HVClientException
+
+
 HVClientLib 1.2.0 - 2013-04-08
 ==============================
 

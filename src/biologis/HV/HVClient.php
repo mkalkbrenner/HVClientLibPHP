@@ -168,4 +168,6 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
 
 }
 
+class HVClientException extends \Exception {}
+
 class HVClientNotConnectedException extends \Exception {}

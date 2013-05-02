@@ -30,7 +30,7 @@ class HealthRecordItemFactory {
       }
     }
     else {
-      throw new Exception('ThingFactory::getThing must be called with a valid thing name or type id or a QueryPath object representing a thing.');
+      throw new HVClientException('ThingFactory::getThing must be called with a valid thing name or type id or a QueryPath object representing a thing.');
     }
 
     if ($typeId) {
@@ -39,15 +39,15 @@ class HealthRecordItemFactory {
           return new $className($type_or_qp);
         }
         else {
-          throw new Exception('Things of that type id are not supported yet: ' . $typeId);
+          throw new HVClientException('Things of that type id are not supported yet: ' . $typeId);
         }
       }
       else {
-        throw new Exception('Creation of new empty things of that type id is not supported yet: ' . $typeId);
+        throw new HVClientException('Creation of new empty things of that type id is not supported yet: ' . $typeId);
       }
     }
     else {
-      throw new Exception('Unable to detect type id.');
+      throw new HVClientException('Unable to detect type id.');
     }
   }
 
@@ -56,7 +56,7 @@ class HealthRecordItemFactory {
       return HVRawConnector::$things[$thingNameOrTypeId];
     }
     elseif (!in_array($thingNameOrTypeId, HVRawConnector::$things)) {
-      throw new Exception('Unknown thing name or type id: ' . $thingNameOrTypeId);
+      throw new HVClientException('Unknown thing name or type id: ' . $thingNameOrTypeId);
     }
     return $thingNameOrTypeId;
   }
