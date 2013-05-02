@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<thing>
+  <type-id name="Weight Measurement">3d34d87e-7fc1-4153-800f-f56592cb0d17</type-id>
+  <data-xml>
+    <weight>
+      <when>
+        <date>
+          <y />
+          <m />
+          <d />
+        </date>
+        <time>
+          <h />
+          <m />
+          <s />
+          <f />
+        </time>
+      </when>
+      <value>
+        <kg />
+      </value>
+    </weight>
+  </data-xml>
+</thing>

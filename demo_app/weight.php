@@ -7,6 +7,7 @@
  */
 
 use biologis\HV\HVClient;
+use biologis\HV\HealthRecordItem\WeightMeasurement;
 use biologis\HV\HVRawConnectorUserNotAuthenticatedException;
 use biologis\HV\HVRawConnectorAuthenticationExpiredException;
 
@@ -43,9 +44,19 @@ try {
 
   ob_flush();
 
-  print '<br><a href="list_all_things.php">List all things</a>';
-  print '<br><a href="files.php">Files example</a>';
-  print '<br><a href="weight.php">Weight example</a>';
+  if (isset($_POST['submit']) && is_numeric($_POST['weight'])) {
+    $weightMeasurement = WeightMeasurement::createFromData(time(), $_POST['weight']);
+    $hv->putThings($weightMeasurement, $recordId);
+  }
+
+  $things = $hv->getThings('Weight Measurement', $recordId);
+  foreach ($things as $thing) {
+    print date(DATE_RFC850, $thing->getTimestamp('when')) . ': <b>';
+    print $thing->weight->value->kg . 'kg</b><br>';
+  }
+  print "<hr>";
+  ob_flush();
+
 }
 catch (HVRawConnectorUserNotAuthenticatedException $e) {
   print "You're not authenticated! ";
@@ -56,7 +67,8 @@ catch (HVRawConnectorAuthenticationExpiredException $e) {
   printAuthenticationLink();
 }
 catch (Exception $e) {
-  print "Your authentication expired! ";
+  print $e->getMessage() . '<br>';
+  print $e->getCode() . '<br>';
   printAuthenticationLink();
 }
 
@@ -68,3 +80,9 @@ function printAuthenticationLink() {
     'http' . (!empty($_SERVER["HTTP_SSL"]) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])
     . '">Authenticate</a>';
 }
+
+?>
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+  Weight: <input name="weight" type="text">
+  <input type="submit" name="submit">
+</form>
