@@ -16,15 +16,15 @@ interface HVClientInterface {
    * @param string $privateKey
    *   Private key as string or file path to load private key from
    */
-  public function connect($thumbPrint = NULL, $privateKey = NULL);
+  public function connect($thumbPrint, $privateKey);
 
   public function disconnect();
 
-  public function getAuthenticationURL($redirectUrl = '');
+  public function getAuthenticationURL($redirectUrl, $actionQs);
 
   public function getPersonInfo();
 
-  public function getThings($thingNameOrTypeId, $recordId, $options = array());
+  public function getThings($thingNameOrTypeId, $recordId, $options);
 
   public function putThings($things, $recordId);
 
