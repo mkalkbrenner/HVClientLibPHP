@@ -72,7 +72,7 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
   }
 
   public function getAuthenticationURL($redirectUrl) {
-    return HVRawConnector::getAuthenticationURL($this->appId, $redirectUrl, $this->session, $this->healthVaultAuthInstance);
+    return HVRawConnector::getAuthenticationURL($this->appId, $this->session, $this->healthVaultAuthInstance, $redirectUrl);
   }
 
   public function getPersonInfo() {
