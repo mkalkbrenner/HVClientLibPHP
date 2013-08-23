@@ -20,7 +20,7 @@ interface HVClientInterface {
 
   public function disconnect();
 
-  public function getAuthenticationURL($redirectUrl);
+  public function getAuthenticationURL($redirectUrl = '');
 
   public function getPersonInfo();
 
