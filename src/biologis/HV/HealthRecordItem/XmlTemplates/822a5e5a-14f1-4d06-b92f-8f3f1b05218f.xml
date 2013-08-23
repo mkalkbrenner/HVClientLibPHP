@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<thing>
+  <type-id name="Advance Directive">822a5e5a-14f1-4d06-b92f-8f3f1b05218f</type-id>
+  <data-xml>
+    <directive>
+      <start-date />
+      <stop-date />
+      <description />
+      <full-resuscitation />
+      <prohibited-interventions />
+      <additional-instructions />
+      <attending-physician />
+      <attending-physician-endorsement />
+      <attending-nurse />
+      <attending-nurse-endorsement />
+      <expiration-date />
+      <discontinuation-date />
+      <discontinuation-physician />
+      <discontinuation-physician-endorsement />
+      <discontinuation-nurse />
+      <discontinuation-nurse-endorsement />
+    </directive>
+  </data-xml>
+</thing>

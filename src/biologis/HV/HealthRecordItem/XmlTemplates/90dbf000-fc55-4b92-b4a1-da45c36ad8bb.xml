@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<thing>
+  <type-id name="Aerobic Exercise Session">	90dbf000-fc55-4b92-b4a1-da45c36ad8bb</type-id>
+  <data-xml>
+    <aerobic-session>
+      <when />
+      <session />
+      <session-samples />
+      <lap-session />
+    </aerobic-session>
+  </data-xml>
+</thing>

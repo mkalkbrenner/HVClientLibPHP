@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<thing>
+  <type-id name="Aerobic Profile">7b2ea78c-4b78-4f75-a6a7-5396fe38b09a</type-id>
+  <data-xml>
+    <aerobic-profile>
+      <when />
+      <max-heartrate />
+      <resting-heartrate />
+      <anaerobic-threshold />
+      <VO2-max>
+        <absolute />
+        <relative />
+      </VO2-max>
+      <heartrate-zone-group name="str1234">
+        <heartrate-zone name="str1234">
+          <lower-bound />
+          <upper-bound />
+        </heartrate-zone>
+      </heartrate-zone-group>
+    </aerobic-profile>
+  </data-xml>
+</thing>
