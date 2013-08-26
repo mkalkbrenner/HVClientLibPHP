@@ -1,4 +1,4 @@
-HVClientLib 1.3.0 - 2013-08-xx
+HVClientLib 1.3.0 - 2013-08-26
 ==============================
 
 * updated API of HVRawConnector 1.3.0
