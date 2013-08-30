@@ -18,8 +18,8 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
   private $session;
   private $connector = NULL;
   private $logger = NULL;
-  private $healthVaultPlatform = 'https://platform.healthvault-ppe.com/platform/wildcat.ashx';
-  private $healthVaultAuthInstance = 'https://account.healthvault-ppe.com/redirect.aspx';
+  private $healthVaultPlatformUrl;
+  private $healthVaultShellUrl;
 
   /**
    * @param string $appId
@@ -30,6 +30,7 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
   public function __construct($appId, &$session) {
     $this->appId = $appId;
     $this->session = & $session;
+    $this->setInstance(1, TRUE);
   }
 
   /**
@@ -52,7 +53,7 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
       $this->connector->setLogger($this->logger);
     }
 
-    $this->connector->setHealthVaultPlatform($this->healthVaultPlatform);
+    $this->connector->setHealthVaultPlatform($this->healthVaultPlatformUrl);
 
     if ($country) {
       $this->connector->setCountry($country);
@@ -72,7 +73,7 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
   }
 
   public function getAuthenticationURL($redirectUrl = '', $actionQs = array()) {
-    return HVRawConnector::getAuthenticationURL($this->appId, $this->session, $this->healthVaultAuthInstance, $redirectUrl, $actionQs);
+    return HVRawConnector::getAuthenticationURL($this->appId, $this->session, $this->healthVaultShellUrl, $redirectUrl, $actionQs);
   }
 
   public function getPersonInfo() {
@@ -142,20 +143,74 @@ class HVClient implements HVClientInterface, LoggerAwareInterface {
     }
   }
 
+  /**
+   * Set HealthVault instance to use for requests.
+   * @see http://msdn.microsoft.com/en-us/healthvault/jj127014
+   * @see http://msdn.microsoft.com/en-us/library/dn269023
+   *
+   * @param int $instanceId
+   *   1 = US Instance (default)
+   *   2 = UK Instance
+   * @param bool $ppe
+   *   TRUE = Pre Production Environment
+   */
+  public function setInstance($instanceId = 1, $ppe = FALSE) {
+    if (2 == $instanceId) {
+      $this->healthVaultPlatformUrl = ($ppe) ?
+        'https://platform.healthvault-ppe.co.uk/platform/wildcat.ashx' :
+        'https://platform.healthvault.co.uk/platform/wildcat.ashx';
+      $this->healthVaultShellUrl = ($ppe) ?
+        'https://account.healthvault-ppe.co.uk/redirect.aspx' :
+        'https://account.healthvault.co.uk/redirect.aspx';
+    }
+    else {
+      $this->healthVaultPlatformUrl = ($ppe) ?
+        'https://platform.healthvault-ppe.com/platform/wildcat.ashx' :
+        'https://platform.healthvault.com/platform/wildcat.ashx';
+      $this->healthVaultShellUrl = ($ppe) ?
+        'https://account.healthvault-ppe.com/redirect.aspx' :
+        'https://account.healthvault.com/redirect.aspx';
+    }
+  }
+
+  /**
+   * @deprecated
+   * use setInstance() instead.
+   */
   public function setHealthVaultAuthInstance($healthVaultAuthInstance) {
-    $this->healthVaultAuthInstance = $healthVaultAuthInstance;
+    $this->healthVaultShellUrl = $healthVaultAuthInstance;
   }
 
+  /**
+   * @deprecated
+   * use getShellUrl() instead.
+   */
   public function getHealthVaultAuthInstance() {
-    return $this->healthVaultAuthInstance;
+    return $this->getShellUrl();
   }
 
+  public function getShellUrl() {
+    return $this->healthVaultShellUrl;
+  }
+
+  /**
+   * @deprecated
+   * use setInstance() instead.
+   */
   public function setHealthVaultPlatform($healthVaultPlatform) {
-    $this->healthVaultPlatform = $healthVaultPlatform;
+    $this->healthVaultPlatformUrl = $healthVaultPlatform;
   }
 
+  /**
+   * @deprecated
+   * use getPlatformUrl() instead.
+   */
   public function getHealthVaultPlatform() {
-    return $this->healthVaultPlatform;
+    return $this->getPlatformUrl();
+  }
+
+  public function getPlatformUrl() {
+    return $this->healthVaultPlatformUrl;
   }
 
   public function setConnector(HVRawConnectorInterface $connector) {

@@ -28,13 +28,11 @@ interface HVClientInterface {
 
   public function putThings($things, $recordId);
 
-  public function setHealthVaultAuthInstance($healthVaultAuthInstance);
+  public function setInstance($instanceId, $ppe);
 
-  public function getHealthVaultAuthInstance();
+  public function getShellUrl();
 
-  public function setHealthVaultPlatform($healthVaultPlatform);
-
-  public function getHealthVaultPlatform();
+  public function getPlatformUrl();
 
   public function setConnector(HVRawConnectorInterface $connector);
 
